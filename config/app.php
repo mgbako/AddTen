@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY', 'Bnxbb1vcfTpQcWDKVQAqrv5Q6vYFx7C8'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -136,13 +136,16 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Illuminate\Html\HtmlServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Scholrs\Providers\AppServiceProvider::class,
+        Scholrs\Providers\EventServiceProvider::class,
+        Scholrs\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -191,6 +194,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Html'      => Illuminate\Html\HtmlFacade::class,
+        'Form'      => Illuminate\Html\FormFacade::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'Flash'     => Laracasts\Flash\Flash::class,
 
     ],
 

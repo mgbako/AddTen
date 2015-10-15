@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Scholrs;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +24,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable =  ['email', 'password', 'firstname', 
+        'lastname', 'userId', 'phone', 'dob', 'address', 'state',
+        'nationality', 'type', 'image', 'slug'
+        ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -32,4 +35,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function student() {
+        return $this->belongsTo('Scholrs\Student');
+    }
+
+    public function teacher() {
+        return $this->belongsTo('Scholrs\Teacher');
+    }
+
+    public function admin() {
+        return $this->belongsTo('Scholrs\Admin');
+    }
+
+    public function photos() {
+        return $this->morphMany('Scholrs\Photo', 'imageable');
+    }
 }

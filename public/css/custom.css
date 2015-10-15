@@ -1,0 +1,44 @@
+img.profile{
+  max-width: 100%;
+}
+
+table td.shrink, table th.shrink {
+    white-space:nowrap;
+    width: 100px;
+}
+
+h1 { font-size: 1.5em; }
+p { margin: 0; }
+input[type="radio"] { 
+  height: 15px; 
+  width: 15px; 
+  margin-right: 10px;
+} 
+
+.ready { font-size: 1.5em; }
+.ui-progressbar-value { background: lightgreen; }
+.progressbar-container {
+  position: relative;
+  width: 100%; 
+}
+
+.progressbar-bar { 
+  height: 25px;
+  margin: 10px 0;
+  border-radius: 7px;
+}
+
+.progressbar-label {
+  position: absolute;
+  top: 2px;
+  left: 45%;
+  z-index: 2;
+}
+
+.activeLink{
+  background-color: #444;
+}
+
+select['multiple']{
+  color: red;
+}
