@@ -3,6 +3,8 @@
 namespace Scholrs\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Scholrs\Providers\GateContract;
+use Scholrs\Permission;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,9 +13,22 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    /*public function boot(GateContract $gate)
     {
-        //
+        foreach($this->getPermissions() as $permission)
+        {
+            $gate->define($permission->name, function($user) use ($permission) {
+               return $user->hasRole($permission->roles);
+            });
+        }
+    }*/
+
+    /**
+     * Get any permission
+     */
+    protected function getPermissions()
+    {
+        return Permission::with('roles')->get();
     }
 
     /**

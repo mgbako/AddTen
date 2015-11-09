@@ -19,9 +19,10 @@ class TeachersController extends Controller {
 	 */
 	public function index()
 	{
+		$user = \Auth::user();
 		$count = 1;
 		$teachers = Teacher::all();
-		return view('admin.teachers.index', compact('teachers', 'count'));
+		return view('admin.teachers.index', compact('teachers', 'count', 'user'));
 	}
 
 	/**
@@ -31,16 +32,20 @@ class TeachersController extends Controller {
 	 */
 	public function create()
 	{
+		$user = \Auth::user();
 		$types = [
+			'' => 'Selete Type',
 			'Administrator'=>'Administrator',
 			'Teacher'=>'Teacher',
 			'Users'=>'Users',
+			'Principal'=>'Principal',
+			'Secretary'=>'Secretary',
 		];
 
 		$classes = Classe::lists('name', 'id');
 		$subjects = Subject::lists('name', 'id');
 
-		return view('admin.teachers.create', compact('types', 'subjects', 'classes'));
+		return view('admin.teachers.create', compact('types', 'subjects', 'classes', 'user'));
 	}
 
 	/**
@@ -58,15 +63,14 @@ class TeachersController extends Controller {
 		$path = 'img/staffs/';
 		$image->move($path, $name);
 
-		//Image::make($image->getRealPath() )->resize(468, 249)->save('public/img/staffs'.$name);
-
-
+		
 		$teacher->firstname = $request->input('firstname');
 		$teacher->lastname = $request->input('lastname');
 		$teacher->teacherId = $request->input('teacherId');
 		$teacher->phone = $request->input('phone');
 		$teacher->dob = $request->input('dob');
 		$teacher->gender = $request->input('gender');
+		$teacher->address = $request->input('address');
 		$teacher->state = $request->input('state');
 		$teacher->nationality = $request->input('nationality');
 		$teacher->type = $request->input('type');
@@ -91,8 +95,10 @@ class TeachersController extends Controller {
 	 */
 	public function show($id)
 	{
+		$user = \Auth::user();
 		$teacher = Teacher::find($id);
-		return view('admin.teachers.show', compact('teacher'));
+
+		return view('admin.teachers.show', compact('teacher', 'user', 'assignedClass'));
 	}
 
 	/**
@@ -103,10 +109,14 @@ class TeachersController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$user = \Auth::user();
 		$types = [
+			'' => 'Selete Type',
 			'Administrator'=>'Administrator',
 			'Teacher'=>'Teacher',
 			'Users'=>'Users',
+			'Principal'=>'Principal',
+			'Secretary'=>'Secretary',
 		];
 
 		$classes = Classe::lists('name', 'id');
@@ -114,7 +124,7 @@ class TeachersController extends Controller {
 		
 		$teacher = Teacher::findOrFail($id);
 
-		return view('admin.teachers.edit', compact('teacher', 'types', 'classes', 'subjects'));
+		return view('admin.teachers.edit', compact('teacher', 'types', 'classes', 'subjects', 'user'));
 	}
 
 	/**
@@ -123,13 +133,38 @@ class TeachersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update(TeacherRequest $request, $id)
 	{
+		
 		$teacher = Teacher::findOrFail($id);
+		$image = $teacher->image;
 
-		$this->validate($request, Teacher::updateRules());
+		if($request->hasFile('image'))
+		{
+			$image = $request->file('image');
+			
+			$name = time().$image->getClientOriginalName();
+			$path = 'img/staffs/';
+			$image->move($path, $name);
 
-		$teacher->update($request->all());
+			$image = $path.$name;
+		}
+		
+		
+
+		$teacher->update([
+			'firstname'=>$request->input('firstname'),
+	        'lastname'=>$request->input('lastname'),
+	        'phone'=>$request->input('phone'),
+	        'dob'=>$request->input('dob'),
+	        'gender'=>$request->input('gender'),
+	        'address'=>$request->input('address'),
+	        'state'=>$request->input('state'),
+	        'nationality'=>$request->input('nationality'),
+	        'type'=>$request->input('type'),
+	        'image'=>$image
+
+		]);
 
 		return redirect()
 				->route('teachers.index')
@@ -138,9 +173,11 @@ class TeachersController extends Controller {
 
 	public function delete($id)
 	{
+		$user = \Auth::user();
+
 		$teacher = Teacher::find($id);
 
-		return view('admin.teachers.delete', compact('teacher'));
+		return view('admin.teachers.delete', compact('teacher', 'user'));
 	}
 
 	/**
@@ -151,6 +188,7 @@ class TeachersController extends Controller {
 	 */
 	public function destroy($id, Request $request)
 	{
+		$user = \Auth::user();
 		$teacher = Teacher::find($id);
 
 		if($request->get('agree')==1)

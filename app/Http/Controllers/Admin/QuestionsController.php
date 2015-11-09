@@ -25,6 +25,7 @@ class QuestionsController extends Controller {
 	 */
 	public function index()
 	{
+		$user = \Auth::user();
 		$term = 'First Term';
 
 		if($_GET['class'])
@@ -46,7 +47,7 @@ class QuestionsController extends Controller {
                                ->get();
 		
 		
-		return view('admin.questions.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term'));
+		return view('admin.questions.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term', 'user'));
 	}
 
 	/**

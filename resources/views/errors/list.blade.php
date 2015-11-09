@@ -1,10 +1,10 @@
 @if($errors->any())
 	<div class="panel panel-danger">
-	<div class="panel-heading text-center"><h1>Oops!</h1></div>
+	<h1 class="text-center">Oops!</h1>
 	  <div class="panel-body">
 	  	<ul class="alert alert-danger">
 			@foreach($errors->all() as $error)
-				<p>{{ $error }}</p>
+				<p>{{ ucwords($error) }}</p>
 			@endforeach
 		</ul>
 	  </div>

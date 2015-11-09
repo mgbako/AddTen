@@ -21,10 +21,9 @@ class TeacherRequest extends Request {
 	 */
 	public function rules()
 	{
-		return [
+		$rules = [
 			'firstname'=>'required',
 			'lastname'=>'required',
-			'teacherId'=>'required|unique:teachers',
 			'phone'=>'required',
 			'dob'=>'required',
 			'gender'=>'required',
@@ -33,6 +32,14 @@ class TeacherRequest extends Request {
 			'nationality'=>'required',
 			'type'=>'required'
 		];
+
+		if(Request::isMethod('post'))
+        {
+        	$rules['teacherId'] = 'required|unique:teachers';
+            $rules['image'] = 'required';
+        }
+
+        return $rules;
 	}
 
 }

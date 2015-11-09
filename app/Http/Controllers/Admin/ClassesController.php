@@ -17,9 +17,11 @@ class ClassesController extends Controller {
 	 */
 	public function index()
 	{
+		$user = \Auth::user();
 		$count = 1;
 		$classes = Classe::orderBy('name', 'asc')->get();
-		return view('admin.classes.index', compact('classes', 'count'));
+		$subjectList = Subject::orderBy('name', 'asc')->lists('name', 'id');
+		return view('admin.classes.index', compact('classes', 'count', 'user', 'subjectList'));
 	}
 
 	/**

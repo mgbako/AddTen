@@ -45,7 +45,8 @@ class Teacher extends Model {
         'address'=>'required',
         'state'=>'required',
         'nationality'=>'required',
-        'type'=>'required'
+        'type'=>'required',
+        'image'=>'required'
       ];
     }
 

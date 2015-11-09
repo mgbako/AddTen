@@ -14,13 +14,21 @@
 
 	<link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}"> -->
+
+	<!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
     <!-- iCheck -->
     <link href="{{ asset('dist/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css">
+     
+    <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css') }}">
+    <!-- iCheck -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,12 +53,14 @@
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="pages/mailbox/dashboard.html" class="logo">
+        <a href="/" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>10</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><img src="{{ asset('img/logo.png') }}" alt="Add Ten" /><b>Add</b>Ten</span>
+          <span class="logo-lg"><img src="{{ asset('/img/logo.png') }}" alt="Add Ten" /><b>Add</b>Ten</span>
         </a>
+
+        @unless(Auth::guest())
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -65,13 +75,13 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="{{ asset('dist/img/avatar04.png') }}" class="user-image" alt="User Image">
+                  <img src="/{{$user->image}}" class="user-image" alt="User Image">
                   <span class="hidden-xs">{{ Auth::user()->firstname }}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                  <img src="{{ asset('dist/img/avatar04.png') }}" class="img-circle" alt="User Image">
+                  <img src="/{{$user->image}}" class="img-circle" alt="User Image">
                     <p>
                       {{ Auth::user()->firstname }}
                       <small>School Admin</small>
@@ -90,18 +100,21 @@
             </ul>
           </div>
         </nav>
+        @endunless
       </header>
 	@endunless
 
 	@if(Session::has('message'))
-		{!! Session::get('message') !!}
+		<div class="text-center">
+			{!! Session::get('message') !!}
+		</div>
 	@endif
 
 
 	<div class="container-fluid">
 		<div class="row">
 			@unless(Auth::guest())
-			<!-- Left side column. contains the logo and sidebar -->
+			 <!-- Left side column. contains the logo and sidebar -->
 		      <aside class="main-sidebar">
 		        <!-- sidebar: style can be found in sidebar.less -->
 		        <section class="sidebar">
@@ -109,14 +122,14 @@
 		          <ul class="sidebar-menu">
 		            <li class="header">MAIN NAVIGATION</li>
 		            <li>
-		              <a href="dashboard.html">
+		              <a href="{{ route('index') }}">
 		                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		              </a>
 		            </li>
 		            
-		            <li class="active">
-		              <a href="profile.html">
-		              <i class="fa fa-user"></i> <span>Profile</span>
+		            <li>
+		              <a href="{{ route('profile.index') }}">
+		              <i class="fa fa-user"></i> <span>Profile ( {{$user->type }} )</span>
 		              </a>
 		            </li>
 		            <li class="treeview">
@@ -125,18 +138,28 @@
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="/teachers"><i class="fa fa-circle-o"></i> Staff List</a></li>
-		                <li><a href="pages/mailbox/subjectpro.html"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
+		                <li><a href="{{ route('staffAssign.index') }}"><i class="fa fa-circle-o"></i> Profile</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i>All Staffs</a></li>
 		              </ul>
 		            </li>
 		            <li class="treeview">
-		              <a href="">
+		              <a href="#">
 		                <i class="fa fa-graduation-cap"></i> <span>Students</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="/students"><i class="fa fa-circle-o"></i> Student List</a></li>
-		                <li><a href="/classes"><i class="fa fa-circle-o"></i> Classes</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Profile</a></li>
+		                <li><a href="{{ route('students.index') }}"><i class="fa fa-circle-o"></i> All Students </a></li>
+		              </ul>
+		            </li>
+		            <li class="treeview">
+		              <a href="#">
+		                <i class="fa fa-graduation-cap"></i> <span>Classes</span>
+		                <i class="fa fa-angle-left pull-right"></i>
+		              </a>
+		              <ul class="treeview-menu">
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Profile</a></li>
+		                <li><a href="{{ route('classes.index') }}"><i class="fa fa-circle-o"></i> All Classes </a></li>
 		              </ul>
 		            </li>
 		            <li class="treeview">
@@ -145,21 +168,30 @@
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="analysis.html"><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
-		                <li><a href="/subjects"><i class="fa fa-circle-o"></i> Subject List</a></li>
-		                <li><a href="pages/mailbox/subjectpro.html"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
-		                <li><a href="pages/mailbox/lockscreen.html"><i class="fa fa-circle-o"></i> Subject Question</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
+		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject List</a></li>
+		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Question</a></li>
 		              </ul>
 		            </li>
 		            <li>
-		              <a href="dashboard.html">
+		              <a href="{{ route('teachers.index') }}">
 		              <i class="fa fa-pie-chart"></i> <span>Results</span>
 		              </a>
 		            </li>
-		            <li>
-		              <a href="dashboard.html">
+		            <li class="treeview active">
+		              <a href="#">
 		              <i class="fa fa-gears"></i> <span>Settings</span>
+		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
+		              <ul class="treeview-menu">
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> School</a></li>
+		                <li><a href=""><i class="fa fa-circle-o"></i> Exam</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Password</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Questions</a></li>
+		                <li class="active"><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Role</a></li>
+		              </ul>
 		            </li>
 		            <li class="treeview">
 		              <a href="#">
@@ -167,9 +199,9 @@
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-		                <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-		                <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>              
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Login</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Register</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
 		              </ul>
 		            </li>
 		          </ul>
@@ -196,11 +228,13 @@
     <script src="{{ asset('/plugins/fastclick/fastclick.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('/dist/js/app.min.js') }}"></script>
+    <script src="{{ asset('/dist/js/demo.js') }}"></script>
     <script src="{{ asset('/js/dropzone.js') }}"></script>
 	<script src="{{ asset('/plugins/iCheck/icheck.min.js') }}"></script>
+	<script src="{{ asset('/plugins/select2/select2.min.js') }}"></script>
 	<script src="{{ asset('/js/countdown.jquery.js')}}"></script>
-	<script src="{{ asset('/js/paginate.js')}}"></script>
-	<script src="{{ asset('/js/custom.js')}}"></script>
+	<script src="{{ asset('/js/paginate2.js')}}"></script>
+	<script src="{{ asset('/js/progressBar.js')}}"></script>
 	<script>
       $(function () {
         $('input').iCheck({

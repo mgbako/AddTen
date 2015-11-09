@@ -18,12 +18,13 @@ class SubjectsController extends Controller {
 
 	public function index()
 	{
+		$user = \Auth::user();
 
 		$count = 1;
 
 		$subjects = Subject::all();
 		
-		return view('admin.subjects.index', compact('count', 'subjects'));
+		return view('admin.subjects.index', compact('count', 'subjects', 'user'));
 	}
 
 	/**
@@ -73,7 +74,7 @@ class SubjectsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		$subject = Subject::findOrFail($id->id);
+		$subject = Subject::findOrFail($id);
 
 		return view('admin.subjects.edit', compact('subject'));
 	}
@@ -86,7 +87,7 @@ class SubjectsController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
-		$subject = Subject::findOrFail($id->id);
+		$subject = Subject::findOrFail($id);
 
 		$this->validate($request, ['name'=>'required|min:3']);
 
@@ -118,14 +119,14 @@ class SubjectsController extends Controller {
 	 */
 	public function destroy($id, Request $request)
 	{
-		$subject = Subject::find($id->id);
+		$subject = Subject::find($id);
 
 		if($request->get('agree')==1)
 		{
 			$subject->delete();
 
-			return redirect('subjects')
-				->with('message', '<p class="alert alert-danger">Subject Deleted</p>');
+			return redirect()->route('subjects.index')
+				->with('message', '<p class="alert alert-danger text-center">Subject Deleted</p>');
 		}
 
 		return redirect('subjects');

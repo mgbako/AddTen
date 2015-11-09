@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class StudentsController extends Controller {
 
+	private $path = 'img/student/';
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,9 +19,10 @@ class StudentsController extends Controller {
 	 */
 	public function index()
 	{
+		$user = \Auth::user();
 		$count = 1;
 		$students = Student::all();
-		return view('admin.students.index', compact('students', 'count'));
+		return view('admin.students.index', compact('students', 'count', 'user'));
 	}
 
 	/**
@@ -30,7 +32,7 @@ class StudentsController extends Controller {
 	 */
 	public function create()
 	{
-		$classList = Classe::lists('name', 'id');
+		$classList = Classe::lists('name');
 		$subjects = Subject::lists('name', 'id');
 		return view('admin.students.create', compact('classList', 'subjects'));
 	}
@@ -42,8 +44,27 @@ class StudentsController extends Controller {
 	 */
 	public function store(StudentRequest $request)
 	{
-		$input = $request->all();
-		$student = Student::create($input);
+		$student = new Student();
+		
+		$image = $request->file('image');
+		
+		$name = time().$image->getClientOriginalName();
+		
+		$image->move($this->path, $name);
+
+		$student->firstname = $request->input('firstname');
+		$student->lastname = $request->input('lastname');
+		$student->studentId = $request->input('studentId');
+		$student->phone = $request->input('phone');
+		$student->dob = $request->input('dob');
+		$student->gender = $request->input('gender');
+		$student->state = $request->input('state');
+		$student->address = $request->input('address');
+		$student->nationality = $request->input('nationality');
+		$student->class = $request->input('class');
+		$student->image = $this->path.$name;
+		$student->save();
+
 		$student->subjects()->attach($request->input('subject_list'));
 
 		return redirect()
@@ -59,8 +80,10 @@ class StudentsController extends Controller {
 	 */
 	public function show($id)
 	{
+		$user = \Auth::user();
+
 		$student = Student::find($id);
-		return view('admin.students.show', compact('student'));
+		return view('admin.students.show', compact('student', 'user'));
 	}
 
 	/**
@@ -71,12 +94,19 @@ class StudentsController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$user = \Auth::user();
+
 		$classList = Classe::lists('name', 'name');
 		$subjects = Subject::lists('name', 'id');
 
 		$student = Student::findOrFail($id);
+
+		$str = [];
+		foreach($student->subjects as $st){
+			$str[] = $st->pivot->subject_id;
+		}
 		
-		return view('admin.students.edit', compact('student', 'classList', 'subjects'));
+		return view('admin.students.edit', compact('student', 'classList', 'subjects',  'str', 'user'));
 	}
 
 	/**
@@ -85,13 +115,37 @@ class StudentsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $request)
+	public function update(StudentRequest $request, $id)
 	{
 		$student = Student::findOrFail($id);
+		$image = $student->image;
 
-		$this->validate($request, Student::updateRules());
+		if($request->hasFile('image'))
+		{
+			$image = $request->file('image');
+			
+			$name = time().$image->getClientOriginalName();
+			
+			$image->move($this->path, $name);
 
-		$student->update($request->all());
+			$image = $this->path.$name;
+		}
+
+		$student->update([
+
+			'firstname'=>$request->input('firstname'),
+	        'lastname'=>$request->input('lastname'),
+	        'phone'=>$request->input('phone'),
+	        'dob'=>$request->input('dob'),
+	        'gender'=>$request->input('gender'),
+	        'address'=>$request->input('address'),
+	        'state'=>$request->input('state'),
+	        'nationality'=>$request->input('nationality'),
+	        'class'=>$request->input('class'),
+	        'image'=>$image
+		]);
+
+		$student->subjects()->sync($request->input('subject_list'));
 
 		return redirect()
 				->route('students.index')
@@ -100,9 +154,11 @@ class StudentsController extends Controller {
 
 	public function delete($id)
 	{
+		$user = \Auth::user();
+
 		$student = Student::find($id);
 
-		return view('admin.students.delete', compact('student'));
+		return view('admin.students.delete', compact('student', 'user'));
 	}
 
 	/**
@@ -118,6 +174,7 @@ class StudentsController extends Controller {
 		if($request->get('agree')==1)
 		{
 			$student->delete();
+			$student->subjects()->detach($id);
 
 			return redirect()
 				->route('students.index')

@@ -1,6 +1,7 @@
 <?php namespace Scholrs\Http\Controllers;
 use Auth;
 use Scholrs\Teacher;
+use Scholrs\Student;
 use Scholrs\Subject;
 use Scholrs\Classe;
 
@@ -24,7 +25,7 @@ class HomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		//$this->middleware('auth');
 	}
 
 	/**
@@ -34,36 +35,48 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$user = Auth::user();
+
+		if(Auth::guest())
+		{
+			return view('home');
+		}
+		
+		$user = \Auth::user();
 		$classes = [];
 
-		$id = Teacher::where('teacherId', $user->userId)->get();
-		$classes = Classe::all();
-		$subjects = Subject::all();
+		
+		$totalClasses = Classe::all()->count();
+		$totalSubjects = Subject::all()->count();
+		$totalStaffs = Teacher::all()->count();
+		$totalStudents = Student::all()->count();
 
-		return $subjects;
-		foreach($id as $id)
+		if($user->type != "Student")
 		{
-			$id = $id->id;
-		}
-		$teacher = Teacher::find($id);
-		//dd($teacher);
-		//dd($teacher);
-		foreach($teacher->classes as $classe)
-		{
-			$classes[] = $classe;
-		}
+			$id = Teacher::where('teacherId', $user->userId)->get();
+			foreach($id as $id)
+			{
+				$id = $id->id;
+			}
+			$teacher = Teacher::find($id);
+			//dd($teacher);
+			//dd($teacher);
+			foreach($teacher->classes as $classe)
+			{
+				$classes[] = $classe;
+			}
 
-		foreach($teacher->subjects as $subject)
-		{
-			$subjects[] = $subject;
+			foreach($teacher->subjects as $subject)
+			{
+				$subjects[] = $subject;
+			}
 		}
+		
 
 		
 		//dd($subjects);
 		
-
-		return view('dashboard', compact('classes', 'subjects', 'classe_id', 'subject_id'));
+		
+		return view('dashboard', compact('classes', 'totalClasses', 'totalSubjects', 'totalStaffs', 'totalStudents', 'user'));
 	}
 
 }

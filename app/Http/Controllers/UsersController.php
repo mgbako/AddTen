@@ -17,6 +17,7 @@ class UsersController extends Controller {
 	 */
 	public function index()
 	{
+		$user = \Auth::user();
 		/*$type
 		return view('users.index', compact('type'));*/
 	}
@@ -28,7 +29,8 @@ class UsersController extends Controller {
 	 */
 	public function create()
 	{
-		return view('users.create');
+		$user = \Auth::user();
+		return view('users.create', compact('user'));
 	}
 
 	/**
@@ -38,6 +40,7 @@ class UsersController extends Controller {
 	 */
 	public function store(UserRequest $request)
 	{
+
 		$userId = strtoupper($request->get('user_id'));
 
 		$InitUserId = substr($userId, 0, 3);

@@ -16,6 +16,7 @@ class ExaminationsController extends Controller
      */
     public function index($classId, $subjectId)
     {
+        $user = \Auth::user();
         $term = 'First Term';
 
         if($_GET['class'])

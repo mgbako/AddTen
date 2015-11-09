@@ -28,6 +28,10 @@ class Student extends Model {
       return $this->belongsToMany('Scholrs\Subject')->withTimestamps();
     }
 
+    /**
+     * Get the subjects associated with the given student
+     * @return Array of tags
+     */
     public function getSubjectListAttribute()
     {
       return $this->subjects->lists('id');
@@ -41,23 +45,6 @@ class Student extends Model {
     public function grades()
     {
       return $this->hasMany('Scholrs\Grade');
-    }
-
-
-
-    public static function updateRules()
-    {
-      return [
-        'firstname'=>'required',
-        'lastname'=>'required',
-        'phone'=>'required',
-        'dob'=>'required',
-        'gender'=>'required',
-        'address'=>'required',
-        'state'=>'required',
-        'nationality'=>'required',
-        'class'=>'required'
-      ];
     }
 
 }

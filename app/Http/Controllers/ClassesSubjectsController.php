@@ -20,15 +20,25 @@ class ClassesSubjectsController extends Controller
      */
     public function index($classe_id)
     {
+
+        $user = \Auth::user();
+
         $count = 1;
 
-        $subjectList = Subject::all();
+        $subjectList = Subject::orderBy('name', 'asc')->lists('name', 'id');
 
         $subjectName = Classe::findOrFail($classe_id)->name;
 
         $subjects = Classe::orderBy('name', 'asc')->findOrFail($classe_id)->subjects;
 
-        return view('admin.classesSubjects.index', compact('subjects', 'subjectList', 'count', 'classe_id', 'subjectName') );
+        $classes = Classe::findOrFail($classe_id);
+
+        $str = [];
+        foreach($classes->subjects as $st){
+            $str[] = $st->pivot->subject_id;
+        }
+
+        return view('admin.classesSubjects.index', compact('subjects', 'subjectList', 'count', 'classe_id', 'subjectName', 'str', 'user') );
     }
 
     /**
@@ -48,10 +58,12 @@ class ClassesSubjectsController extends Controller
      */
     public function store(ClassesSubjectsRequest $request, $classe_id)
     {
-        ClasseSubject::create( $request->all() );
+        $classSubject = Classe::findOrFail($classe_id);
+
+        $classSubject->subjects()->sync($request->input('subject_id'));
         return redirect()
-                ->route('classes.subjects.index', $classe_id)
-                ->with('message', '<p class="alert alert-success">Subject Created</p>');
+                ->route('classes.subjects', $classe_id)
+                ->with('message', '<p class="alert alert-success text-center">Subject Created</p>');
     }
 
     /**
@@ -117,7 +129,7 @@ class ClassesSubjectsController extends Controller
 
             return redirect()
                 ->route("classes.subjects.index", [$id])
-                ->with('message', '<p class="alert alert-success">Subject Deleted</p>');
+                ->with('message', '<p class="alert alert-success text-center">Subject Deleted</p>');
         }
 
         return redirect()

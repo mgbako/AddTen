@@ -14,6 +14,7 @@ use Scholrs\Http\Requests\QuestionRequest;
 
 class QuestionsController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +22,7 @@ class QuestionsController extends Controller
      */
     public function index($classe_id, $subject_id)
     {
-
+        $user = \Auth::user();
         $term = 'First Term';
 
         $count = 1;
@@ -29,7 +30,7 @@ class QuestionsController extends Controller
                                ->where('subject_id', $subject_id)
                                ->get();
 
-        return view('admin.questions.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term'));
+        return view('admin.questions.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term', 'user'));
     }
 
     /**
@@ -51,7 +52,7 @@ class QuestionsController extends Controller
     {
         $question = new Question($request->all() );
         $teacher = Teacher::where('teacherId', Auth::user()->userId)->first();
-        //dd($teacher->questions());
+        
         $teacher->questions()->save($question);
 
         $myanswer = $request['answer'];
@@ -63,7 +64,7 @@ class QuestionsController extends Controller
        
         return redirect()
             ->route("classes.subjects.questions.index", [$id, $subjectId])
-            ->with('message', '<p class="alert alert-success">Question Added</p>');
+            ->with(['message'=> '<p class="alert alert-success">Question Added</p>', 'user']);
     }
 
     /**
@@ -74,10 +75,11 @@ class QuestionsController extends Controller
      */
     public function show($classe_id, $subject_id, $questionId)
     {
+        $user = \Auth::user();
         $count = 1;
         $question = Question::find($questionId);
 
-        return view('admin.questions.show', compact('question', 'classe_id', 'subject_id' ));
+        return view('admin.questions.show', compact('question', 'classe_id', 'subject_id', 'user'));
     }
 
     /**
@@ -88,10 +90,11 @@ class QuestionsController extends Controller
      */
     public function edit($id, $subjectId, $questionId)
     {
+        $user = \Auth::user();
         $question = Question::findOrFail($questionId);
         //return $question;
 
-        return view('admin.questions.edit', compact('question', 'id', 'subjectId'));
+        return view('admin.questions.edit', compact('question', 'id', 'subjectId', 'user'));
     }
 
     /**
@@ -127,9 +130,10 @@ class QuestionsController extends Controller
      */
     public function delete($id, $subjectId, $questionId)
     {
+        $user = \Auth::user();
         $question = Question::find($questionId);
 
-        return view('admin.questions.delete', compact('question', 'id', 'subjectId', 'questionId'));
+        return view('admin.questions.delete', compact('question', 'id', 'subjectId', 'questionId', 'user'));
     }
 
     /**

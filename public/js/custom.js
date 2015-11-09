@@ -12,12 +12,16 @@
 
 	countBoxes();
 	$(":radio").click(countBoxes);
+	console.log($(":radio").length);
 
 	// Count Checks
 	function countChecked(){
 		checked = $('input:checked').length;
+		console.log(checked);
 
 		var percentage = parseInt( ( (checked / count) * 100), 10);
+
+		console.log(percentage);
 		if(percentage < 50 ){
 			$('.progress-bar').addClass('progress-bar-danger')
 		}
@@ -54,8 +58,14 @@
 
 	$('#countdown').countdown({date: '15 August 2015 15:53:00'});
 
-	$('nav.paginate').customPaginate({
+	/*$('nav.paginate').customPaginate({
 		itemsToPaginate: ".post"
-	});
+	});*/
+
+
+	/**
+	 * GUI i for Multiple Select
+	 */
+	$('#selected').select2();
 
 }(jQuery));

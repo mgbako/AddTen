@@ -25,7 +25,7 @@ class ExamsController extends Controller
     public function index($classe_id, $subject_id)
     {
        
-
+        $user = \Auth::user();
         $term = 'First Term';
 
         $count = 1;
@@ -47,7 +47,7 @@ class ExamsController extends Controller
 
         //$questions->setPath("/exams?class=$classeName&subject=$subjectName");*/
 
-        return view('exams.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term', 'totals'))->withInput($checked_items);
+        return view('exams.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term', 'totals', 'user')); //->withInput($checked_items);
     }
 
     /**
@@ -72,13 +72,14 @@ class ExamsController extends Controller
         $count = 0;
         foreach($request->all() as $index => $answer)
         {
-            
             $results = Answer::where('question_id', $index)->lists('answer');
-           foreach ($results as $result) {
-            if ($result == $answer) {
-                $count ++;
+            foreach ($results as $result)
+            {
+                if ($result == $answer)
+                {
+                    $count ++;
+                }
             }
-           }
         }
 
         return $count;
