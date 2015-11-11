@@ -91,9 +91,23 @@ class ExamsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show($classe_id, $subject_id)
     {
-        //
+        $user = \Auth::user();
+        $term = 'First Term';
+
+        $count = 1;
+        $questions = Question::where('classe_id', $classe_id)
+                               ->where('subject_id', $subject_id)
+                               ->orderBy(\DB::raw('RAND()'))
+                               ->get();
+
+        $totals = Question::where('classe_id', $classe_id)
+                               ->where('subject_id', $subject_id)
+                               ->get();
+
+
+        return view('exams.show', compact('questions', 'count', 'subject_id', 'classe_id', 'term', 'totals', 'user'));
     }
 
     /**

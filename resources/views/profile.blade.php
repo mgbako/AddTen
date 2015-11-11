@@ -43,7 +43,7 @@
                   </ul>
                 </li>
                 <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a></li>
-                <li><a href="examev.html"><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
+                <li><a href="{{ route('classes.exams.index', [$classe_id]) }}"><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
                 <li><a href="results.html"><i class="fa fa-pie-chart"></i> Results</a></li>
               </ul>
             </div><!-- /.box-body -->
