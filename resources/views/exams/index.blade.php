@@ -7,9 +7,8 @@
 			Welcome, <span>Admin</span>
 		</h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="Profile.html">Profile</a></li>
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/Profile">Profile</a></li>
             <li class="active">Exam Hall</li>
         </ol>
     </section>
@@ -44,93 +43,27 @@
                     <!-- /.box-header -->
                     <div class="box-header with-border">
 
-                        <div class="alert alert-danger alert-dismissable">
-                            <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                            <p><strong><u>DO NOT REFRESH THIS PAGE...</u></strong></p>
-                            <p>Follow ALL Exam Insturctions while seated in the examination hall. Remember you are TIMED.
-                                <br> Any question? Ask the exam invegilator for help.
-                                <br> Thank you.
-                            </p>
-                        </div>
+                       <div class="alert alert-warning alert-dismissable">
+                            <h4><i class="icon fa fa-warning"></i> Note!</h4>
+                            You have entered the Exam Hall. <br> 
+                            Please observe <b><u>ALL</u></b> Exam Rules and Regulations.<br>
+                            Thank you.
+                       </div>
+                              
+                      @foreach($subjects as $subject)
+                      <div class="box box-warning box-solid">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">{{ $subject->name }}</h3>
+                          <div class="box-tools pull-right">
+                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                          </div><!-- /.box-tools -->
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                          The exam scripts of this exam is ready. click on the link to continue. <br> <a href="{{ route('classes.subjects.exams.show', [$classe_id, $subject->id])}}">Start</a>
+                        </div><!-- /.box-body -->
+                      </div><!-- /.box -->
+                      @endforeach
 
-
-                        <div class="col-md-12">
-
-                            <div class="box-header with-border">
-
-                                <h3 class="box-title">Subject Name</h3>
-                            </div>
-                            <!-- /.box-header -->
-
-
-
-
-                            <div class="col-md-3 col-sm-6 col-xs-6 text-center pull-right">
-                                <input type="text" class="knob" value="30" data-skin="tron" data-thickness="0.2" data-width="120" data-height="120" data-fgColor="#3c8dbc" data-readonly="true">
-                                <div class="knob-label">
-                                    <h3>Count Down</h3></div>
-                            </div>
-                            <!-- ./col -->
-
-
-                            <div class="box-body">
-                                <dl>
-                                    <dt>
-
-										<div class="col-md-3 col-sm-6 col-xs-6 text-center pull-left">
-											<input type="text" class="knob" data-skin="tron"  data-thickness="0.2" data-width="120" data-height="120" data-fgColor="#00a65a" data-readonly="true">
-											<div class="knob-label">
-												<h3 class="number">Number</h3>
-											</div>
-										</div><!-- ./col -->
-
-									</dt>
-                                </dl>
-                                <div class="form-group">
-                                    <div class="item col-lg-12">
-										<div class="panel-body" id="quest">
-											
-											<input type='hidden' id='current_page' />  
-											<input type='hidden' id='show_per_page' />
-
-								            {!! Form::open(['route'=>'classes.subjects.exams.store', $classe_id, $subject_id])!!}
-								            <div id="content">
-								                @foreach($questions as $question)
-								                <div class="post">
-								                    <p class="message" id="compose-textarea" style="height: 100px">{!! $question->question !!}</p>
-								                    <hr>
-								                    <div class="form-group">
-	  													<dt>Answers</dt>
-									                    <ol class="radio">
-									                        <li>{!! Form::radio($question->id, $question->option1, null, ['class'=>'progress', "id"=>"optionsRadios1"]) !!} {!! $question->option1 !!}</li>
-									                        <li>{!! Form::radio($question->id, $question->option2, null, ['class'=>'progress', 'id'=> "optionsRadios2"]) !!} {!! $question->option2 !!}</li>
-									                        <li>{!! Form::radio($question->id, $question->option3, null, ['class'=>'progress', 'id'=> "optionsRadios3"]) !!} {!! $question->option3 !!}</li>
-									                        <li>{!! Form::radio($question->id, $question->option4, null, ['class'=>'progress', 'id'=> "optionsRadios4"]) !!} {!! $question->option4 !!}</li>
-									                    </ol>
-								                	</div>
-								                </div>
-								                @endforeach   
-								            </div>
-
-								            <div class="modal-footer">
-												<h1><span id="counter"></span></h1>
-									            <div class="progress progress-striped active">
-									                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-									                <div class="progressbar-label"></div>
-									            </div>
-								            	<nav id='page_navigation'>
-								                	
-								                </nav>
-
-								            </div>
-								            	<p>{!! Form::submit('Finish', ['class'=> 'btn btn-success finish', 'id'=>'finish'])!!}</p>
-								            {!!Form::close()!!}
-								        </div>
-                                    </div>
-                                </div><!-- Form Group -->
-                            </div>
-
-                        </div>
                     </div>
                 </div>
                 <!-- /. box -->
@@ -138,7 +71,7 @@
                 	
                 </div>
             </div>
-            <!-- /.col -->
+            <!-- /.col 9-->
         </div>
         <!-- /.row -->
     </section>
@@ -148,48 +81,4 @@
 
 
 
-
-
-
-
-
-<!-- <div class="">
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1><span id="counter"></span></h1>
-            <div class="progress progress-striped active">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                <div class="progressbar-label"></div>
-            </div>
-        </div>
-        <div class="panel-body" id="quest">
-            {!! Form::open(['route'=>'classes.subjects.exams.store', $classe_id, $subject_id])!!}
-            <div class="list-of-post">
-                @foreach($questions as $question)
-                <div class="post">
-                    <h2>{!! $question->question !!}</h2>
-                    <ol class="radio">
-                        <li>{!! Form::radio($question->id, $question->option1, null, ['class'=>'progress']) !!} {!! $question->option1 !!}</li>
-                        <li>{!! Form::radio($question->id, $question->option2, null, ['class'=>'progress']) !!} {!! $question->option2 !!}</li>
-                        <li>{!! Form::radio($question->id, $question->option3, null, ['class'=>'progress']) !!} {!! $question->option3 !!}</li>
-                        <li>{!! Form::radio($question->id, $question->option4, null, ['class'=>'progress']) !!} {!! $question->option4 !!}</li>
-                    </ol>
-                </div>
-                @endforeach
-
-
-                <nav class="paginate">
-
-                </nav>
-                <a class="btn btn-primary pull-left previousLink">Previous</a>
-                <a class="btn btn-primary pull-right nextLink">Next</a>
-                <h2 id="total"></h2> {!! Form::submit('Finish', ['class'=> 'btn btn-success finish', 'id'=>'finish'])!!}
-            </div>
-            {!!Form::close()!!}
-
-
-        </div>
-    </div>
-</div> -->
 @stop

@@ -7,9 +7,8 @@
 			Welcome, <span>Admin</span>
 		</h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="Profile.html">Profile</a></li>
+            <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="/profile">Profile</a></li>
             <li class="active">Exam Hall</li>
         </ol>
     </section>
@@ -27,7 +26,7 @@
                     </div>
                     <div class="box-body no-padding">
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="profile.html"><i class="fa fa-user"></i> Bio Data</a></li>
+                            <li><a href="/profile"><i class="fa fa-user"></i> Bio Data</a></li>
                             <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a></li>
                             <li class="active"><a href="examev.html"><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
                             <li><a href="results.html"><i class="fa fa-pie-chart"></i> Results</a></li>
@@ -146,50 +145,4 @@
 </div>
 <!-- /.content-wrapper -->
 
-
-
-
-
-
-
-
-<!-- <div class="">
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1><span id="counter"></span></h1>
-            <div class="progress progress-striped active">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                <div class="progressbar-label"></div>
-            </div>
-        </div>
-        <div class="panel-body" id="quest">
-            {!! Form::open(['route'=>'classes.subjects.exams.store', $classe_id, $subject_id])!!}
-            <div class="list-of-post">
-                @foreach($questions as $question)
-                <div class="post">
-                    <h2>{!! $question->question !!}</h2>
-                    <ol class="radio">
-                        <li>{!! Form::radio($question->id, $question->option1, null, ['class'=>'progress']) !!} {!! $question->option1 !!}</li>
-                        <li>{!! Form::radio($question->id, $question->option2, null, ['class'=>'progress']) !!} {!! $question->option2 !!}</li>
-                        <li>{!! Form::radio($question->id, $question->option3, null, ['class'=>'progress']) !!} {!! $question->option3 !!}</li>
-                        <li>{!! Form::radio($question->id, $question->option4, null, ['class'=>'progress']) !!} {!! $question->option4 !!}</li>
-                    </ol>
-                </div>
-                @endforeach
-
-
-                <nav class="paginate">
-
-                </nav>
-                <a class="btn btn-primary pull-left previousLink">Previous</a>
-                <a class="btn btn-primary pull-right nextLink">Next</a>
-                <h2 id="total"></h2> {!! Form::submit('Finish', ['class'=> 'btn btn-success finish', 'id'=>'finish'])!!}
-            </div>
-            {!!Form::close()!!}
-
-
-        </div>
-    </div>
-</div> -->
 @stop

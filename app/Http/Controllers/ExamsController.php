@@ -22,32 +22,19 @@ class ExamsController extends Controller
      *
      * @return Response
      */
-    public function index($classe_id, $subject_id)
+    public function index($classe_id)
     {
        
         $user = \Auth::user();
         $term = 'First Term';
 
+        $subjects = Classe::find($classe_id)->subjects()->get();
+
+
         $count = 1;
-        $questions = Question::where('classe_id', $classe_id)
-                               ->where('subject_id', $subject_id)
-                               ->orderBy(\DB::raw('RAND()'))
-                               ->get();
+        
 
-        $totals = Question::where('classe_id', $classe_id)
-                               ->where('subject_id', $subject_id)
-                               ->get();
-
-        /*$checked_items = [];
-        if(\Session::has('checked_items'))
-            $checked_items = \Session::get('checked_items');
-
-       // $checked_items = array_merge($checked_items, \Input::get('abc'));
-        \Session::flash('checked_items', $checked_items);
-
-        //$questions->setPath("/exams?class=$classeName&subject=$subjectName");*/
-
-        return view('exams.index', compact('questions', 'count', 'subject_id', 'classe_id', 'term', 'totals', 'user')); //->withInput($checked_items);
+        return view('exams.index', compact('user', 'classe_id', 'subjects'));
     }
 
     /**

@@ -42,13 +42,17 @@ class ProfileController extends Controller {
 		$teacher = Teacher::where('teacherId', $id)->get();
 
 		$student = Student::where('studentId', '=', $id)->get();
-		$classe_id = Classe::where('id', $student->class);
-		return
+
+		$class;
 
 		if($user->type === 'Student')
 		{
 			$class = Classe::where('name', $student[0]->class)->get();
 		}
+
+		$classe_id = $class[0]->id;
+
+		//return $classe_id;
 
 
         $staff = Teacher::orderBy('lastname', 'asc')->get(['id', 'lastname', 'firstname', 'teacherId']);
@@ -92,7 +96,7 @@ class ProfileController extends Controller {
 		
 
 		
-		return view('profile', compact('user', 'student', 'class', 'assignedClass', 'subject'));
+		return view('profile', compact('user', 'student', 'class', 'assignedClass', 'subject', 'classe_id'));
 	}
 
 }

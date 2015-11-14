@@ -68,6 +68,8 @@ Route::group(['middleware'=> 'auth'], function(){
 	Route::resource('classes.subjects.questions', 'QuestionsController');
 
 	Route::get('classes/{id}/exams',  ['as'=>'classes.exams.index', 'uses'=>'ExamsController@index']);
+	Route::get('classes/{id}/subjects/{subjectId}/exams',  ['as'=>'classes.subjects.exams.show', 'uses'=>'ExamsController@show']);
+
 	Route::resource('classes.subjects.exams', 'ExamsController');
 
 
