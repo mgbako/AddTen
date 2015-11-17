@@ -14,7 +14,7 @@
 
 	<link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
     <!-- iCheck -->
-    <!-- <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('plugins/iCheck/square/blue.css') }}">
 
 	<!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/select2.min.css') }}">
@@ -26,7 +26,19 @@
     <link href="{{ asset('dist/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css">
      
     <link rel="stylesheet" href="{{ asset('plugins/iCheck/flat/blue.css') }}">
+
+     <link rel="stylesheet" href="{{ asset('plugins/morris/morris.css') }}">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') }}">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/datepicker/datepicker3.css') }}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker-bs3.css') }}">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+
     <!-- iCheck for checkboxes and radio inputs -->
+    
     <link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css') }}">
     <!-- iCheck -->
 
@@ -121,7 +133,7 @@
 		          <!-- sidebar menu: : style can be found in sidebar.less -->
 		          <ul class="sidebar-menu">
 		            <li class="header">MAIN NAVIGATION</li>
-		            <li>
+		            <li class="active">
 		              <a href="{{ route('index') }}">
 		                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		              </a>
@@ -169,7 +181,7 @@
 		              </a>
 		              <ul class="treeview-menu">
 		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
+		                <li><a href="{{ route('staffAssign.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
 		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject List</a></li>
 		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
 		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Question</a></li>
@@ -180,7 +192,7 @@
 		              <i class="fa fa-pie-chart"></i> <span>Results</span>
 		              </a>
 		            </li>
-		            <li class="treeview active">
+		            <li class="treeview">
 		              <a href="#">
 		              <i class="fa fa-gears"></i> <span>Settings</span>
 		                <i class="fa fa-angle-left pull-right"></i>
@@ -228,7 +240,7 @@
     <script src="{{ asset('/plugins/fastclick/fastclick.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('/dist/js/app.min.js') }}"></script>
-    <script src="{{ asset('/dist/js/demo.js') }}"></script>
+    <script src="{{ asset('s/dist/js/demo.js') }}"></script>
     <script src="{{ asset('/js/dropzone.js') }}"></script>
 	<script src="{{ asset('/plugins/iCheck/icheck.min.js') }}"></script>
 	<script src="{{ asset('/plugins/select2/select2.min.js') }}"></script>
@@ -237,11 +249,11 @@
 	<script src="{{ asset('/js/progressBar.js')}}"></script>
 	<script>
       $(function () {
-        /*$('input').iCheck({
+        $('input').iCheck({
           checkboxClass: 'icheckbox_square-blue',
           radioClass: 'iradio_square-blue',
           increaseArea: '20%' // optional
-        });*/
+        });
       });
     </script>
 </body>

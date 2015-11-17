@@ -43,14 +43,15 @@ class ProfileController extends Controller {
 
 		$student = Student::where('studentId', '=', $id)->get();
 
-		$class;
+		$classe_id = "";
 
 		if($user->type === 'Student')
 		{
 			$class = Classe::where('name', $student[0]->class)->get();
+			$classe_id = $class[0]->id;
 		}
 
-		$classe_id = $class[0]->id;
+		
 
 		//return $classe_id;
 

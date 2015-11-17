@@ -36,6 +36,11 @@
 
 	countChecked();
 	$(":radio").on('click', countChecked);
+
+	/**
+	 * GUI i for Multiple Select
+	 */
+	$('#selected').select2();
 }());
 
 	

@@ -28,7 +28,7 @@ Route::group(['middleware'=> 'auth'], function(){
 	
 	Route::resource('/profile', 'ProfileController');
 
-	Route::get('staffAssign', 'StaffAssignController@index');
+	//Route::get('staffAssign', 'StaffAssignController@index');
 	
 	Route::get('classes/{classe_id}/subjects/{subject_id}/questions', 'QuestionsController@index');
 
