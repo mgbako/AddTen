@@ -25,55 +25,58 @@ Route::post('auth/register', ['as'=>'register.store', 'uses'=> 'Auth\AuthControl
 
 Route::group(['middleware'=> 'auth'], function(){
 
+Route::resource('/subjectAssigned', 'SubjectAssignedController');
 	
 	Route::resource('/profile', 'ProfileController');
 
 	//Route::get('staffAssign', 'StaffAssignController@index');
 	
-	Route::get('classes/{classe_id}/subjects/{subject_id}/questions', 'QuestionsController@index');
-
-	Route::get('subjects/{id}/delete', ['as'=>'subjects.delete', 'uses'=>'Admin\SubjectsController@delete']);
+	
 	Route::resource('subjects', 'Admin\SubjectsController');
 
+	
+	Route::resource('/students', 'Admin\StudentsController');
+	Route::get('/students/{id}/delete', ['as'=>'students.delete', 'uses'=>'Admin\StudentsController@delete']);
 
 	
-
-	
-
-	Route::get('students/{id}/delete', ['as'=>'students.delete', 'uses'=>'Admin\StudentsController@delete']);
-	Route::resource('students', 'Admin\StudentsController');
-
-
+	Route::resource('/teachers', 'Admin\TeachersController');
 	Route::get('teachers/{id}/delete', ['as'=>'teachers.delete', 'uses'=>'Admin\TeachersController@delete']);
-	Route::resource('teachers', 'Admin\TeachersController');
 
 
 	/*Route::get('questions/{id}/delete', ['as'=>'questions.delete', 'uses'=>'Admin\QuestionsController@delete']);
 	Route::resource('questions', 'Admin\QuestionsController');*/
 
 
-	Route::get('users/{id}/delete', ['as'=>'users.delete', 'uses'=>'UsersController@delete']);
+	Route::get('/users/{id}/delete', ['as'=>'users.delete', 'uses'=>'UsersController@delete']);
 	Route::resource('users', 'UsersController');
 
-	Route::get('classes/{id}/delete', ['as'=>'classes.delete', 'uses'=>'Admin\ClassesController@delete']);
+	Route::get('/classes/{id}/delete', ['as'=>'classes.delete', 'uses'=>'Admin\ClassesController@delete']);
 	Route::resource('classes', 'Admin\ClassesController');
 
-	Route::get('classes/{id}/subjects', ['as'=>'classes.subjects', 'uses'=>'ClassesSubjectsController@index']);
-	Route::get('classes/{id}/subjects/{subjectId}/delete', ['as'=>'classes.subjects.delete', 'uses'=>'ClassesSubjectsController@delete']);
+	Route::get('/classes/{id}/subjects', ['as'=>'classes.subjects', 'uses'=>'ClassesSubjectsController@index']);
+	Route::get('/classes/{id}/subjects/{subjectId}/delete', ['as'=>'classes.subjects.delete', 'uses'=>'ClassesSubjectsController@delete']);
 	Route::resource('classes.subjects', 'ClassesSubjectsController');
 
+	Route::get('classes/{classe_id}/subjects/{subject_id}/questions', 'QuestionsController@index');
 
+	Route::get('/subjects/{id}/delete', ['as'=>'subjects.delete', 'uses'=>'Admin\SubjectsController@delete']);
 	
-	Route::get('classes/{id}/subjects/{subjectId}/questions/{questionId}/delete', ['as'=>'classes.subjects.questions.delete', 'uses'=>'QuestionsController@delete']);
+	Route::get('/classes/{id}/subjects/{subjectId}/questions/{questionId}/delete', ['as'=>'classes.subjects.questions.delete', 'uses'=>'QuestionsController@delete']);
 	Route::resource('classes.subjects.questions', 'QuestionsController');
 
-	Route::get('classes/{id}/exams',  ['as'=>'classes.exams.index', 'uses'=>'ExamsController@index']);
-	Route::get('classes/{id}/subjects/{subjectId}/exams',  ['as'=>'classes.subjects.exams.show', 'uses'=>'ExamsController@show']);
+	Route::get('/classes/{id}/exams',  ['as'=>'classes.exams.index', 'uses'=>'ExamsController@index']);
+	Route::get('/classes/{id}/subjects/{subjectId}/exams',  ['as'=>'classes.subjects.exams.show', 'uses'=>'ExamsController@show']);
 
 	Route::resource('classes.subjects.exams', 'ExamsController');
 
 
-	Route::resource('staffAssign', 'StaffAssignController');
+	Route::resource('/staffAssign', 'StaffAssignController');
 
+	Route::get('/subjectReceptions', ['as'=>'subjectReceptions.subjectReception', 'uses'=>'SubjectQuestionsController@subjectReception']);
+
+	Route::resource('/subjectQuestions', 'SubjectQuestionsController');
+	Route::get('/subjectQuestions/classes/{classeId}/subjects/{subjectId}/delete', ['as'=>'subjectQuestions.delete', 'uses'=>'SubjectQuestionsController@delete']);
+
+	
 });
 

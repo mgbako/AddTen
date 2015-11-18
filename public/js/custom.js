@@ -1,68 +1,43 @@
 (function($){
 'use strict';
 
-	//get radio count
-	var count = 0;
-	var checked = 0;
-
-	function countBoxes(){
-		var divider = $('ol').children("li").length / $('ol').length;
-		count = $("input[type='radio']").length / divider;
-	}
-
-	countBoxes();
-	$(":radio").click(countBoxes);
-	console.log($(":radio").length);
-
-	// Count Checks
 	function countChecked(){
-		checked = $('input:checked').length;
-		console.log(checked);
+		var percentage = $('#percentage').val();
+		var progress = $('#progress');
 
-		var percentage = parseInt( ( (checked / count) * 100), 10);
-
-		console.log(percentage);
-		if(percentage < 50 ){
-			$('.progress-bar').addClass('progress-bar-danger')
+		if(percentage < 25 ){
+			$('.progress-bar').addClass('progress-bar-danger');
+			progress.addClass('label-danger');
+			progress.text("No Report");
 		}
-		else if(percentage < 100){
-			$('.progress-bar').removeClass('progress-bar-danger')
-			$('.progress-bar').addClass('progress-bar-warning')
+		else if(percentage < 50 ){
+			$('.progress-bar').removeClass('progress-bar-danger');
+			$('.progress-bar').addClass('progress-bar-warning');
+
+			progress.removeClass('label-danger');
+			progress.addClass('label-warning');
+			progress.text("Progessing");
+		}
+		else if(percentage == 100){
+			$('.progress-bar').removeClass('progress-bar-warning');
+			$('.progress-bar').addClass('progress-bar-primary');
+
+			progress.removeClass('label-warning');
+			progress.addClass('label-primary');
+			progress.text("Submit");
+			
 		}
 		else{
-			$('.progress-bar').removeClass('progress-bar-warning')
-			$('.progress-bar').addClass('progress-bar-success')
+			$('.progress-bar').removeClass('progress-bar-warning');
+			$('.progress-bar').addClass('progress-bar-success');
+
+			progress.removeClass('label-warning');
+			progress.addClass('label-success');
+			progress.text("Approved");
 		}
-		$('.progress-bar').css('width', percentage + '%')
-		$(".progressbar-label").text(percentage + "%");
 	}
 
 	countChecked();
-	$(":radio").click(countChecked);
-
-	/*Count Down Function*/
-	function counter(time, url)	{
-		var interval = setInterval(function(){
-
-			$('#counter').text(time);
-			time = time - 1;
-
-			if(time <= 0){
-				//clearInterval(interval);
-				window.location = url;
-				clearInterval(interval);
-			}
-		}, 1000);
-
-	}
-
-	$('#countdown').countdown({date: '15 August 2015 15:53:00'});
-
-	/*$('nav.paginate').customPaginate({
-		itemsToPaginate: ".post"
-	});*/
-
-
 	/**
 	 * GUI i for Multiple Select
 	 */

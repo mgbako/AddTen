@@ -181,10 +181,11 @@
 		              </a>
 		              <ul class="treeview-menu">
 		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
-		                <li><a href="{{ route('staffAssign.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
+		                <li><a href="{{ route('subjectAssigned.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
 		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject List</a></li>
 		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Question</a></li>
+		                <li><a href="{{ route('subjectQuestions.index') }}"><i class="fa fa-circle-o"></i> Subject Question</a></li>
+		                <li><a href="{{ route('subjectReceptions.subjectReception') }}"><i class="fa fa-circle-o"></i> Subject Reception</a></li>
 		              </ul>
 		            </li>
 		            <li>
@@ -247,6 +248,7 @@
 	<script src="{{ asset('/js/countdown.jquery.js')}}"></script>
 	<script src="{{ asset('/js/paginate2.js')}}"></script>
 	<script src="{{ asset('/js/progressBar.js')}}"></script>
+	<script src="{{ asset('/js/custom.js')}}"></script>
 	<script>
       $(function () {
         $('input').iCheck({

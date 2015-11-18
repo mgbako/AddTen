@@ -106,9 +106,10 @@ class SubjectsController extends Controller {
 	 */
 	public function delete($id)
 	{
+		$user = \Auth::user();
 		$subject = Subject::find($id);
 
-		return view('admin.subjects.delete', compact('subject'));
+		return view('admin.subjects.delete', compact('subject', 'user'));
 	}
 
 	/**
