@@ -3,12 +3,14 @@
 
 	function countChecked(){
 		var percentage = $('#percentage').val();
-		var progress = $('#progress');
+		var progress = $('.progressStatus');
+		var remarks = $('.remarks');
 
 		if(percentage < 25 ){
 			$('.progress-bar').addClass('progress-bar-danger');
 			progress.addClass('label-danger');
 			progress.text("No Report");
+			remarks.text("Not Done");
 		}
 		else if(percentage < 50 ){
 			$('.progress-bar').removeClass('progress-bar-danger');
@@ -17,14 +19,16 @@
 			progress.removeClass('label-danger');
 			progress.addClass('label-warning');
 			progress.text("Progessing");
+			remarks.text("Progessing");
 		}
-		else if(percentage == 100){
+		else if(percentage >= 100){
 			$('.progress-bar').removeClass('progress-bar-warning');
 			$('.progress-bar').addClass('progress-bar-primary');
 
 			progress.removeClass('label-warning');
 			progress.addClass('label-primary');
 			progress.text("Submit");
+			remarks.text("Waiting");
 			
 		}
 		else{
@@ -34,6 +38,7 @@
 			progress.removeClass('label-warning');
 			progress.addClass('label-success');
 			progress.text("Approved");
+			remarks.text("Done");
 		}
 	}
 

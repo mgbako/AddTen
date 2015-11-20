@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration {
 			$table->increments('id');
 			$table->integer('subject_id')->unsigned();
 			$table->integer('teacher_id')->unsigned();
-			$table->string('classe_id');
+			$table->string('classe_id')->unsigned();
 			$table->string('term');
 			$table->text('question');
 			$table->text('option1');

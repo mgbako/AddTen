@@ -77,6 +77,6 @@ Route::resource('/subjectAssigned', 'SubjectAssignedController');
 	Route::resource('/subjectQuestions', 'SubjectQuestionsController');
 	Route::get('/subjectQuestions/classes/{classeId}/subjects/{subjectId}/delete', ['as'=>'subjectQuestions.delete', 'uses'=>'SubjectQuestionsController@delete']);
 
-	
+	Route::resource('/subjectProgess', 'SubjectProgressController');
 });
 

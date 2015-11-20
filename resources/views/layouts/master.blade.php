@@ -180,10 +180,10 @@
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
+		                <li><a href=""><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
 		                <li><a href="{{ route('subjectAssigned.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
 		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject List</a></li>
-		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
+		                <li><a href="{{ route('subjectProgess.index') }}"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
 		                <li><a href="{{ route('subjectQuestions.index') }}"><i class="fa fa-circle-o"></i> Subject Question</a></li>
 		                <li><a href="{{ route('subjectReceptions.subjectReception') }}"><i class="fa fa-circle-o"></i> Subject Reception</a></li>
 		              </ul>
