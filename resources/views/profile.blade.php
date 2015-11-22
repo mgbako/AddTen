@@ -39,7 +39,7 @@
                 <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a>
                   <ul>
                     @foreach($assigned as $assignedSubject)
-                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\Subject::whereId($assignedSubject->subject_id)->distinct()->first()->name }}</a>
+                      <li><a href="{{ route('classes.subjects.questions.index', [$assignedSubject->classe_id, $assignedSubject->subject_id]) }}"><i class="fa fa-list-alt"></i> {{ \Scholrs\Subject::whereId($assignedSubject->subject_id)->distinct()->first()->name }}</a>
                       </li>
                     @endforeach
                   </ul>
