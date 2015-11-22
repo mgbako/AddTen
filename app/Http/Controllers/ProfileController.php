@@ -41,7 +41,7 @@ class ProfileController extends Controller {
 
 		$staffId = Teacher::where('teacherId', $user->userId)->first();
 
-		$assigned = SubjectAssigned::where('teacher_id', $staffId->id)->get();
+		$assigned = SubjectAssigned::where('teacher_id', $staffId->id)->groupBy('classe_id')->get();
 		
 		return view('profile', compact('user', 'assigned'));
 	}

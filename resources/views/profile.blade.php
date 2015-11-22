@@ -29,18 +29,28 @@
               <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="{{ route('profile.index') }}"><i class="fa fa-user"></i> Bio Data</a></li>
                 <li><a href=""><i class="fa fa-list-alt"></i> Assigned Class</a>
-                  <ul class="nav nav-pills nav-stacked">
-                    @foreach($assigned as $assigned)
-                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\Classe::whereId($assigned->classe_id)->distinct()->first()->name }}</a>
-                        <ul>
-                          <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\subject::whereId($assigned->subject_id)->first()->name }}</a>
-                        </ul>
+                  <ul>
+                    @foreach($assigned as $assignedClass)
+                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\Classe::whereId($assignedClass->classe_id)->distinct()->first()->name }}</a>
                       </li>
                     @endforeach
                   </ul>
                 </li>
-                <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a></li>
-                <li><a href="{{ route('classes.exams.index', [$assigned->classe_id]) }}"><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
+                <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a>
+                  <ul>
+                    @foreach($assigned as $assignedSubject)
+                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\Subject::whereId($assignedSubject->subject_id)->distinct()->first()->name }}</a>
+                      </li>
+                    @endforeach
+                  </ul>
+                </li>
+                <li><a href=""><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
+                  <ul>
+                    @foreach($assigned as $assignedClass)
+                      <li><a href="{{ route('classes.exams.index', [$assignedClass->classe_id]) }}"><i class="fa fa-list-alt"></i> {{ \Scholrs\Classe::whereId($assignedClass->classe_id)->distinct()->first()->name }}</a>
+                      </li>
+                    @endforeach
+                  </ul>
                 <li><a href="results.html"><i class="fa fa-pie-chart"></i> Results</a></li>
               </ul>
             </div><!-- /.box-body -->
