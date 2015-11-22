@@ -31,8 +31,9 @@ class ClassesController extends Controller {
 	 */
 	public function create()
 	{
+		$user = \Auth::user();
 		$subjectList = Subject::orderBy('name', 'asc')->lists('name', 'id');
-		return view('admin.classes.create', compact('subjectList'));
+		return view('admin.classes.create', compact('subjectList', 'user'));
 	}
 
 	/**
@@ -68,9 +69,10 @@ class ClassesController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$user = \Auth::user();
 		$class = Classe::find($id);
 
-		return view('admin.classes.edit', compact('class'));
+		return view('admin.classes.edit', compact('class', 'user'));
 	}
 
 	/**
@@ -100,9 +102,10 @@ class ClassesController extends Controller {
 	 */
 	public function delete($id)
 	{
+		$user = \Auth::user();
 		$class = Classe::find($id);
 
-		return view('admin.classes.delete', compact('class'));
+		return view('admin.classes.delete', compact('class', 'user'));
 	}
 
 	/**

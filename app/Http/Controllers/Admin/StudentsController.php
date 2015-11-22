@@ -32,9 +32,10 @@ class StudentsController extends Controller {
 	 */
 	public function create()
 	{
+		$user = \Auth::user();
 		$classList = Classe::lists('name');
 		$subjects = Subject::lists('name', 'id');
-		return view('admin.students.create', compact('classList', 'subjects'));
+		return view('admin.students.create', compact('classList', 'subjects', 'user'));
 	}
 
 	/**

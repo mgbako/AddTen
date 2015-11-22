@@ -74,9 +74,10 @@ class SubjectsController extends Controller {
 	 */
 	public function edit($id)
 	{
+		$user = \Auth::user();
 		$subject = Subject::findOrFail($id);
 
-		return view('admin.subjects.edit', compact('subject'));
+		return view('admin.subjects.edit', compact('subject', 'user'));
 	}
 
 	/**

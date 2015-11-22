@@ -22,11 +22,7 @@ class SubjectQuestionsController extends Controller
     public function index()
     {
         $user = \Auth::user();
-
-       /* $percentage = Question::Percentage(3, 5)->get()->count();
-
-        dd($percentage);*/
-
+       
         $count = 1;
         $classList = Classe::orderBy('name', 'asc')->lists('name', 'id');
         $subjectList = Subject::orderBy('name', 'asc')->lists('name', 'id');
@@ -71,6 +67,17 @@ class SubjectQuestionsController extends Controller
         return redirect()
             ->route("subjectQuestions.index")
             ->with(['message'=> '<p class="alert alert-success">Time Assigned to Subject</p>', 'user']);
+    }
+
+    public function postApproval(Request $request)
+    {
+        $subjectquestionstatus = Subjectquestionstatus::where('classe_id', $request['classId'])
+                                                      ->where('subject_id', $request['subjectId'])
+                                                      ->update(['progress' => 1]);
+
+        return redirect()
+            ->route("subjectQuestions.index")
+            ->with(['message'=> '<p class="alert alert-success">Questions Submitted for Approval</p>']);
     }
 
     /**

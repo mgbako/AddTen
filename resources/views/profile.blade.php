@@ -29,20 +29,18 @@
               <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="{{ route('profile.index') }}"><i class="fa fa-user"></i> Bio Data</a></li>
                 <li><a href=""><i class="fa fa-list-alt"></i> Assigned Class</a>
-                  <ul>
-                    @foreach($assignedClass as $class)
-                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ $class->name }}</a>
+                  <ul class="nav nav-pills nav-stacked">
+                    @foreach($assigned as $assigned)
+                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\Classe::whereId($assigned->classe_id)->distinct()->first()->name }}</a>
                         <ul>
-                          @foreach(Scholrs\Subject::all() as $allsubject)
-                            <li><a href="{{ route('classes.subjects.questions.index', [$class->id, $allsubject->id]) }}"><i class="fa fa-list-alt"></i> {{ $allsubject->name }}</a>
-                          @endforeach
+                          <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\subject::whereId($assigned->subject_id)->first()->name }}</a>
                         </ul>
                       </li>
                     @endforeach
                   </ul>
                 </li>
                 <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a></li>
-                <li><a href="{{ route('classes.exams.index', [$classe_id]) }}"><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
+                <li><a href="{{ route('classes.exams.index', [$assigned->classe_id]) }}"><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
                 <li><a href="results.html"><i class="fa fa-pie-chart"></i> Results</a></li>
               </ul>
             </div><!-- /.box-body -->

@@ -10,11 +10,9 @@
 			<small>Subjects for {{ $subjectName }}</small>
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
 			<li><a href="dashboard.html">Dashboard</a></li>
-			<li><a href="#">Student</a></li>
-			<li><a href="stafflist.html">Student List</a></li>
-			<li class="active">Registration</li>
+			<li><a href="/classes">Classes</a></li>
+			<li class="active">Subject List</li>
 		</ol>
 	</section>
 

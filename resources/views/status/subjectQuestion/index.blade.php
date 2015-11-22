@@ -25,24 +25,24 @@
           <div class="box box-default">
             
             <div class="box-body">
-              {!! Form::open(['route'=>'subjectQuestions.store', 'files'=> true ])!!}
+              {!! Form::open(['route'=>'subjectQuestions.store'])!!}
               <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
                       <label><i class="fa fa-list-alt"></i> Class List</label>
-                      {!! Form::select('classe_id', $classList, null, ['id'=>'selected', 'class'=>'form-control']) !!}
+                      {!! Form::select('classe_id', $classList, null, ['class'=>'form-control']) !!}
                     </div><!-- /.form-group -->
                   </div><!-- /.col -->
                   <div class="col-md-4">
                     <div class="form-group">
                       <label><i class="fa fa-list-alt"></i> Subject List</label>
-                      {!! Form::select('subject_id', $subjectList, null, ['id'=>'selected', 'class'=>'form-control']) !!}
+                      {!! Form::select('subject_id', $subjectList, null, ['class'=>'form-control']) !!}
                     </div><!-- /.form-group -->
                   </div><!-- /.col -->
                   <div class="col-md-4">
                     <div class="form-group">
                       <label><i class="fa fa-clock-o"></i> Time in Minute</label>
-                      {!! Form::select('time', $time, null, ['id'=>'selected', 'class'=>'form-control']) !!}
+                      {!! Form::select('time', $time, null, ['class'=>'form-control']) !!}
                     </div><!-- /.form-group -->
                   </div><!-- /.col -->
               </div><!-- /.row -->
@@ -85,15 +85,20 @@
                         <td>{{ Scholrs\Subject::where('id', $subjectquestionstatus->subject_id)->first()->name}}</td>
                         <td><a href="{{ route('classes.subjects.questions.index', [$subjectquestionstatus->classe_id, $subjectquestionstatus->subject_id]) }}"><i class="fa fa-book"></i> Edit</a> | 
                           <a href="{{ route('subjectQuestions.delete', [$subjectquestionstatus->classe_id, $subjectquestionstatus->subject_id]) }}"><i class="fa fa-remove"></i> Delete</a> | 
+                          {!! Form::open(['method'=>'patch', 'route'=>'subjectQuestions.postApproval'])!!}
                           <a href="{{ route('classes.subjects.questions.index', [$subjectquestionstatus->classe_id, $subjectquestionstatus->subject_id]) }}"><i class="fa fa-eye"></i> View</a> | 
-                          <a href=""><i class="fa fa-database"></i> Submit</a></td>
+                          <a type="submit" class="btn"><i class="fa fa-database"></i> Submit</a></td>
+                          <button type="submit">Sub</button>
+                          {!!Form::close()!!}
                         <td>
                           <div class="progress progress-xs progress-striped">
                             <input type="hidden" id="percentage" value="{{ Scholrs\Question::Percentage($subjectquestionstatus->classe_id, $subjectquestionstatus->subject_id)->get()->count() }}">
                             <div class="progress-bar" style="width:{{ Scholrs\Question::Percentage($subjectquestionstatus->classe_id, $subjectquestionstatus->subject_id)->get()->count() }}%"></div>
                           </div>
                         </td>
-                        <td><span id="progress" class="label"></span></td>
+                        <td><span class="label progressStatus"></span></td>
+                        {!! Form::hidden('classId', $subjectquestionstatus->classe_id) !!}
+                        {!! Form::hidden('subjectId', $subjectquestionstatus->subject_id) !!}
                       </tr>
                       @endforeach
                   </table>

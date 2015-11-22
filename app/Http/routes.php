@@ -74,9 +74,14 @@ Route::resource('/subjectAssigned', 'SubjectAssignedController');
 
 	Route::get('/subjectReceptions', ['as'=>'subjectReceptions.subjectReception', 'uses'=>'SubjectQuestionsController@subjectReception']);
 
+
 	Route::resource('/subjectQuestions', 'SubjectQuestionsController');
+
 	Route::get('/subjectQuestions/classes/{classeId}/subjects/{subjectId}/delete', ['as'=>'subjectQuestions.delete', 'uses'=>'SubjectQuestionsController@delete']);
+	Route::put('/subjectQuestions', ['as'=>'subjectQuestions.postApproval', 'usee'=>'SubjectQuestionsController@postApproval']);
 
 	Route::resource('/subjectProgess', 'SubjectProgressController');
+	Route::resource('/subjectAnalysis', 'SubjectAnalysisController');
+
 });
 

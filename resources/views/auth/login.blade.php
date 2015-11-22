@@ -15,7 +15,7 @@
         <form role="form" method="POST" action="{{ url('/auth/login') }}">
   		    <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group has-feedback">
-            	<input type="text" class="form-control" name="userId" value="{{ old('userId') }}" placeholder="Username">
+            	<input type="text" class="form-control" name="userId" value="{{ old('userId') }}" placeholder="User Id">
               <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

@@ -6,13 +6,13 @@
 		var progress = $('.progressStatus');
 		var remarks = $('.remarks');
 
-		if(percentage < 25 ){
+		if(percentage == 0 ){
 			$('.progress-bar').addClass('progress-bar-danger');
 			progress.addClass('label-danger');
-			progress.text("No Report");
+			progress.text("No Question Added");
 			remarks.text("Not Done");
 		}
-		else if(percentage < 50 ){
+		else if(percentage < 100 ){
 			$('.progress-bar').removeClass('progress-bar-danger');
 			$('.progress-bar').addClass('progress-bar-warning');
 

@@ -55,12 +55,12 @@
 	<link rel="stylesheet" href="{{ asset('/css/custom.css') }}">
 </head>
 
-@if(Request::is('auth/login'))
+@if(Request::is('/auth/login'))
 <body  class="login-page">
 @else
 <body class="skin-blue sidebar-mini">
 @endif
-	@unless(Request::is('auth/login'))
+	@unless(Request::is('/auth/login'))
 	 <div class="wrapper">
 
       <header class="main-header">
@@ -133,7 +133,7 @@
 		          <!-- sidebar menu: : style can be found in sidebar.less -->
 		          <ul class="sidebar-menu">
 		            <li class="header">MAIN NAVIGATION</li>
-		            <li class="active">
+		            <li>
 		              <a href="{{ route('index') }}">
 		                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		              </a>
@@ -145,47 +145,44 @@
 		              </a>
 		            </li>
 		            <li class="treeview">
-		              <a href="#">
+		              <a href="">
 		                <i class="fa fa-group"></i> <span>Staffs</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="{{ route('staffAssign.index') }}"><i class="fa fa-circle-o"></i> Profile</a></li>
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i>All Staffs</a></li>
+		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i>Staffs</a></li>
 		              </ul>
 		            </li>
 		            <li class="treeview">
-		              <a href="#">
+		              <a href="">
 		                <i class="fa fa-graduation-cap"></i> <span>Students</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Profile</a></li>
-		                <li><a href="{{ route('students.index') }}"><i class="fa fa-circle-o"></i> All Students </a></li>
+		                <li><a href="{{ route('students.index') }}"><i class="fa fa-circle-o"></i>Students</a></li>
 		              </ul>
 		            </li>
 		            <li class="treeview">
-		              <a href="#">
+		              <a href="">
 		                <i class="fa fa-graduation-cap"></i> <span>Classes</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Profile</a></li>
-		                <li><a href="{{ route('classes.index') }}"><i class="fa fa-circle-o"></i> All Classes </a></li>
+		                <li><a href="{{ route('classes.index') }}"><i class="fa fa-circle-o"></i>Classes</a></li>
 		              </ul>
 		            </li>
 		            <li class="treeview">
-		              <a href="#">
+		              <a href="">
 		                <i class="fa fa-list-alt"></i> <span>Subject</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href=""><i class="fa fa-circle-o"></i> Subject Analysis</a></li>
-		                <li><a href="{{ route('subjectAssigned.index') }}"><i class="fa fa-circle-o"></i> Subject Assigned</a></li>
-		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i> Subject List</a></li>
-		                <li><a href="{{ route('subjectProgess.index') }}"><i class="fa fa-circle-o"></i> Subject Progress</a></li>
-		                <li><a href="{{ route('subjectQuestions.index') }}"><i class="fa fa-circle-o"></i> Subject Question</a></li>
-		                <li><a href="{{ route('subjectReceptions.subjectReception') }}"><i class="fa fa-circle-o"></i> Subject Reception</a></li>
+		                <li><a href="{{ route('subjectAnalysis.index') }}"><i class="fa fa-circle-o"></i>Subject Analysis</a></li>
+		                <li><a href="{{ route('subjectAssigned.index') }}"><i class="fa fa-circle-o"></i>Subject Assigned</a></li>
+		                <li><a href="{{ route('subjects.index') }}"><i class="fa fa-circle-o"></i>Subject List</a></li>
+		                <li><a href="{{ route('subjectProgess.index') }}"><i class="fa fa-circle-o"></i>Subject Progress</a></li>
+		                <li><a href="{{ route('subjectQuestions.index') }}"><i class="fa fa-circle-o"></i>Subject Question</a></li>
+		                <li><a href="{{ route('subjectReceptions.subjectReception') }}"><i class="fa fa-circle-o"></i>Subject Reception</a></li>
 		              </ul>
 		            </li>
 		            <li>
@@ -194,7 +191,7 @@
 		              </a>
 		            </li>
 		            <li class="treeview">
-		              <a href="#">
+		              <a href="">
 		              <i class="fa fa-gears"></i> <span>Settings</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
@@ -207,14 +204,13 @@
 		              </ul>
 		            </li>
 		            <li class="treeview">
-		              <a href="#">
+		              <a href="">
 		                <i class="fa fa-folder"></i> <span>Others</span>
 		                <i class="fa fa-angle-left pull-right"></i>
 		              </a>
 		              <ul class="treeview-menu">
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Login</a></li>
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Register</a></li>
-		                <li><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+		                <li><a href="/auth/register"><i class="fa fa-circle-o"></i> Register</a></li>
+		                <li><a href="/auth/logout"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
 		              </ul>
 		            </li>
 		          </ul>
