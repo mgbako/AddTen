@@ -18,8 +18,8 @@
 
 			progress.removeClass('label-danger');
 			progress.addClass('label-warning');
-			progress.text("Progessing");
-			remarks.text("Progessing");
+			progress.text("Processing");
+			remarks.text("Processing");
 		}
 		else if(percentage >= 100){
 			$('.progress-bar').removeClass('progress-bar-warning');
@@ -46,6 +46,6 @@
 	/**
 	 * GUI i for Multiple Select
 	 */
-	$('#selected').select2();
+	$('#selected, #seleteId').select2();
 
 }(jQuery));

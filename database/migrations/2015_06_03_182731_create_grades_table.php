@@ -16,6 +16,7 @@ class CreateGradesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('student_id')->unsigned();
+			$table->integer('classe_id')->unsigned();
 			$table->integer('subject_id')->unsigned();
 			$table->integer('total');
 			$table->string('slug');
@@ -23,11 +24,18 @@ class CreateGradesTable extends Migration {
 
 				$table->foreign('student_id')
 				->references('id')
-				->on('students');
+				->on('students')
+				->onDelete('cascade');
+
+				$table->foreign('classe_id')
+				->references('id')
+				->on('classes')
+				->onDelete('cascade');
 
 				$table->foreign('subject_id')
 				->references('id')
-				->on('subjects');
+				->on('subjects')
+				->onDelete('cascade');
 		});
 	}
 

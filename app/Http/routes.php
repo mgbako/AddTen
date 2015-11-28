@@ -1,5 +1,6 @@
 <?php
-
+use Scholrs\Role;
+use Scholrs\Permission;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,7 +11,6 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
 
 Route::resource('/', 'HomeController');
 
@@ -82,6 +82,11 @@ Route::resource('/subjectAssigned', 'SubjectAssignedController');
 
 	Route::resource('/subjectProgess', 'SubjectProgressController');
 	Route::resource('/subjectAnalysis', 'SubjectAnalysisController');
+
+/**
+ * Roles Route
+ */
+	Route::resource('/roles', 'RolesController');
 
 });
 

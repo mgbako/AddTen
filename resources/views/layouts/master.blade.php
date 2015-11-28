@@ -133,17 +133,22 @@
 		          <!-- sidebar menu: : style can be found in sidebar.less -->
 		          <ul class="sidebar-menu">
 		            <li class="header">MAIN NAVIGATION</li>
+
+		            @if($user->hasRole('principal') or $user->hasRole('secretary') or  $user->hasRole('admin'))
 		            <li>
 		              <a href="{{ route('index') }}">
 		                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
 		              </a>
 		            </li>
-		            
+		            @endif
+
 		            <li>
 		              <a href="{{ route('profile.index') }}">
 		              <i class="fa fa-user"></i> <span>Profile ( {{$user->type }} )</span>
 		              </a>
 		            </li>
+
+		             @if($user->hasRole('principal') or $user->hasRole('secretary') or  $user->hasRole('admin'))
 		            <li class="treeview">
 		              <a href="">
 		                <i class="fa fa-group"></i> <span>Staffs</span>
@@ -171,6 +176,9 @@
 		                <li><a href="{{ route('classes.index') }}"><i class="fa fa-circle-o"></i>Classes</a></li>
 		              </ul>
 		            </li>
+		            @endif
+
+		             @if($user->hasRole('principal') or $user->hasRole('secretary') or  $user->hasRole('admin') or $user->hasRole('teacher'))
 		            <li class="treeview">
 		              <a href="">
 		                <i class="fa fa-list-alt"></i> <span>Subject</span>
@@ -185,11 +193,15 @@
 		                <li><a href="{{ route('subjectReceptions.subjectReception') }}"><i class="fa fa-circle-o"></i>Subject Reception</a></li>
 		              </ul>
 		            </li>
+		            @endif
 		            <li>
 		              <a href="{{ route('teachers.index') }}">
 		              <i class="fa fa-pie-chart"></i> <span>Results</span>
 		              </a>
 		            </li>
+					
+					<!-- Only For Admin -->
+		            @if($user->hasRole('admin'))
 		            <li class="treeview">
 		              <a href="">
 		              <i class="fa fa-gears"></i> <span>Settings</span>
@@ -203,6 +215,8 @@
 		                <li class="active"><a href="{{ route('teachers.index') }}"><i class="fa fa-circle-o"></i> Role</a></li>
 		              </ul>
 		            </li>
+		            @endif
+
 		            <li class="treeview">
 		              <a href="">
 		                <i class="fa fa-folder"></i> <span>Others</span>
@@ -227,6 +241,14 @@
 	</div>
 	
 	</div><!-- ./wrapper -->
+	<div class="">
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+			  <b>Version</b> 1.0
+			</div>
+			<strong>Copyright &copy; 2015 <a href="http://www.pottersmedia.com">Pottersmedia Support Services</a>.</strong> All rights reserved.
+		</footer>
+	</div>
 		
 
 	<!-- Scripts -->

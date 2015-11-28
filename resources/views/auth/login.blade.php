@@ -3,7 +3,7 @@
 @section('content')
 	<div class="login-box">
       <div class="login-logo">
-        <a href="index2.html">{!! Html::image('/img/logo.png', 'Add Ten') !!}<b>Add</b>Ten</a>
+        <a href="/">{!! Html::image('/img/logo.png', 'Add Ten') !!}<b>Add</b>Ten</a>
       </div><!-- /.login-logo -->
       <div class="col-md-12">
           @include('errors.list')
@@ -36,7 +36,7 @@
             </div>
           </form><!-- /.social-auth-links -->
 
-        <a href="{{ url('/password/email') }}">I Forgot Your Password?</a><br>
+        <a href="{{ url('/password/email') }}">I Forgot My Password?</a><br>
         <a href="{{ url('/auth/register') }}" class="text-center">Register a as new member</a>
 
       </div><!-- /.login-box-body -->

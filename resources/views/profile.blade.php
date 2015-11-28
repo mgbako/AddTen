@@ -28,30 +28,46 @@
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="{{ route('profile.index') }}"><i class="fa fa-user"></i> Bio Data</a></li>
-                <li><a href=""><i class="fa fa-list-alt"></i> Assigned Class</a>
-                  <ul>
-                    @foreach($assigned as $assignedClass)
-                      <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> {{ \Scholrs\Classe::whereId($assignedClass->classe_id)->distinct()->first()->name }}</a>
-                      </li>
-                    @endforeach
+                @if(isset($assigned))
+                  <li><a href=""><i class="fa fa-graduation-cap"></i> <b>Assigned Class</b></a>
+                    <ul>
+                      @foreach($assigned as $assignedClass)
+                        <li><i class="fa fa-graduation-cap"></i> {{ \Scholrs\Classe::whereId($assignedClass->classe_id)->groupBy('name')->first()->name }}
+                        </li>
+                      @endforeach
+                    </ul>
+                  </li>
+
+                  <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> <b>Subjects Offered</b></a>
+                    <ul class="">
+                      @foreach($assignedSub as $assignedSubject)
+                        <li><a href="{{ route('classes.subjects.questions.index', [$assignedSubject->classe_id, $assignedSubject->subject_id]) }}"><i class="fa fa-list-alt"></i> {{ \Scholrs\Subject::whereId($assignedSubject->subject_id)->first()->name }} - {{ \Scholrs\Classe::whereId($assignedSubject->classe_id)->groupBy('name')->distinct()->first()->name }}</a>
+                        </li>
+                      @endforeach
+                    </ul>
+                  </li>
+                @endif
+
+                <li><a href=""><i class="fa fa-file-text-o"></i> <b>Exam Hall</b> <span class="label label-primary pull-right">3</span></a>
+
+                  
+                  <ul class="nav nav-pills nav-stacked">
+                    @unless($class)
+                      @foreach($assigned as $assignedClass)
+                        <li><a href="{{ route('classes.exams.index', [$assignedClass->classe_id]) }}"><i class="fa fa-graduation-cap"></i> {{ \Scholrs\Classe::whereId($assignedClass->classe_id)->first()->name }}</a>
+                        </li>
+                      @endforeach
+
+                    @else
+                      <li><a href="{{ route('classes.exams.index', [\Scholrs\Classe::whereName($class)->first()->id]) }}"><i class="fa fa-list-alt"></i> {{ $class }}</a>
+                        </li>
+                    @endunless
                   </ul>
                 </li>
-                <li><a href="subjectev.html"><i class="fa fa-list-alt"></i> Subjects Offered</a>
-                  <ul>
-                    @foreach($assigned as $assignedSubject)
-                      <li><a href="{{ route('classes.subjects.questions.index', [$assignedSubject->classe_id, $assignedSubject->subject_id]) }}"><i class="fa fa-list-alt"></i> {{ \Scholrs\Subject::whereId($assignedSubject->subject_id)->distinct()->first()->name }}</a>
-                      </li>
-                    @endforeach
-                  </ul>
-                </li>
-                <li><a href=""><i class="fa fa-file-text-o"></i> Exam Hall <span class="label label-primary pull-right">3</span></a></li>
-                  <ul>
-                    @foreach($assigned as $assignedClass)
-                      <li><a href="{{ route('classes.exams.index', [$assignedClass->classe_id]) }}"><i class="fa fa-list-alt"></i> {{ \Scholrs\Classe::whereId($assignedClass->classe_id)->distinct()->first()->name }}</a>
-                      </li>
-                    @endforeach
-                  </ul>
-                <li><a href="results.html"><i class="fa fa-pie-chart"></i> Results</a></li>
+                
+                @if($class)
+                  <li><a href="results.html"><i class="fa fa-pie-chart"></i> Results</a></li>
+                @endif
               </ul>
             </div><!-- /.box-body -->
           </div><!-- /. box -->

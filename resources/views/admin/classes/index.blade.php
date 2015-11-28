@@ -61,8 +61,9 @@
 	      </div>
 	      <div class="modal-body">
 	        {!! Form::open(['route'=> ['classes.store'] ]) !!}
-				{!! Form::text('name', null, ['placeholder'=>'Enter Class Name', 'class'=>'form-control']) !!}<br>
-				{!! Form::select('subjects[]', $subjectList, null, ['id'=>'selected', 'class'=>'form-control', 'multiple', 'data-placeholder' =>'Select a Subject(s)', 'style'=>'width: 100%']) !!}			
+				<div class="form-group">
+					{!! Form::text('name', null, ['placeholder'=>'Enter Class Name', 'class'=>'form-control']) !!}
+				</div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

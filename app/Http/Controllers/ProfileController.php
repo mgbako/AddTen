@@ -38,12 +38,22 @@ class ProfileController extends Controller {
 	public function index()
 	{
 		$user = \Auth::user();
-
-		$staffId = Teacher::where('teacherId', $user->userId)->first();
-
-		$assigned = SubjectAssigned::where('teacher_id', $staffId->id)->groupBy('classe_id')->get();
 		
-		return view('profile', compact('user', 'assigned'));
+		$class = '';
+		
+		if($user->type == ucfirst('Student') )
+		{
+			$class = Student::where('studentId', $user->userId)->first()->class;
+		}
+		else
+		{
+			$staffId = Teacher::where('teacherId', $user->userId)->first();
+			$assigned = SubjectAssigned::where('teacher_id', $staffId->id)->groupBy('classe_id')->get();
+			$assignedSub = SubjectAssigned::where('teacher_id', $staffId->id)->get();
+		}
+
+		
+		return view('profile', compact('user', 'assigned', 'class', 'assignedSub'));
 	}
 
 }

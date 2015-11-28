@@ -9,7 +9,10 @@ use Scholrs\ANswer;
 use Scholrs\Student;
 use Scholrs\classe;
 use Scholrs\Subject;
+use Scholrs\Http\Requests\ExamRequest;
 use Auth;
+use Scholrs\SubjectAssigned;
+use Scholrs\Teacher;
 
 
 class ExamsController extends Controller
@@ -28,13 +31,19 @@ class ExamsController extends Controller
         $user = \Auth::user();
         $term = 'First Term';
 
+        $teacherId = Teacher::where('teacherId', $user->userId)->first()->id;
+
+        $subjectAssigneds = SubjectAssigned::whereTeacherId($teacherId)
+                                                    ->whereClasseId($classe_id)
+                                                    ->get();
+
         $subjects = Classe::find($classe_id)->subjects()->get();
 
 
         $count = 1;
         
 
-        return view('exams.index', compact('user', 'classe_id', 'subjects'));
+        return view('exams.index', compact('user', 'classe_id', 'subjects', 'subjectAssigneds'));
     }
 
     /**
@@ -52,8 +61,10 @@ class ExamsController extends Controller
      *
      * @return Response
      */
-    public function store(Requests\ExamRequest $request)
+    public function store(ExamRequest $request, $classe_id, $subject_id)
     {
+        $user = Auth::user();
+        return Student::where('studentId', $user->userId)->first();
         $result;
         $selected;
         $count = 0;
@@ -69,7 +80,9 @@ class ExamsController extends Controller
             }
         }
 
-        return $count;
+        return $request->all();
+
+        return $classe_id;
     }
 
     /**
@@ -80,7 +93,7 @@ class ExamsController extends Controller
      */
     public function show($classe_id, $subject_id)
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         $term = 'First Term';
 
         $count = 1;
@@ -103,9 +116,9 @@ class ExamsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function result()
     {
-        //
+        
     }
 
     /**

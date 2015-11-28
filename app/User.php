@@ -59,9 +59,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function assignRole($role)
     {
-        return $this->roles()->sync(
-            Role::whereName($role)->firstOrFail()
-        );
+        return $this->roles()->attach($role);
+    }
+
+    public function removeRole($role)
+    {
+        return $this->roles()->detach($role);
+    }
+
+    public function giveRole($role)
+    {
+        return $this->roles()->sync($role);
     }
 
     public function hasRole($role)
@@ -70,7 +78,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         {
             return $this->roles->contains('name', $role);
         }
-
-        return !! $role->intersect($this->roles)->count();
     }
 }

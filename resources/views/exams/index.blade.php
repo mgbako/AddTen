@@ -8,7 +8,7 @@
 		</h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="/Profile">Profile</a></li>
+            <li><a href="/profile">Profile</a></li>
             <li class="active">Exam Hall</li>
         </ol>
     </section>
@@ -49,21 +49,38 @@
                             Please observe <b><u>ALL</u></b> Exam Rules and Regulations.<br>
                             Thank you.
                        </div>
-                              
-                      @foreach($subjects as $subject)
-                      <div class="box box-warning box-solid">
-                        <div class="box-header with-border">
-                          <h3 class="box-title">{{ $subject->name }}</h3>
-                          <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                          </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                          The exam scripts of this exam is ready. click on the link to continue. <br> <a href="{{ route('classes.subjects.exams.show', [$classe_id, $subject->id])}}">Start</a>
-                        </div><!-- /.box-body -->
-                      </div><!-- /.box -->
-                      @endforeach
+                         
+                    @if($user->type == ucfirst("student"))     
+                        @foreach($subjects as $subject)
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title">{{ $subject->name }}</h3>
+                              <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                              The exam scripts of this exam is ready. click on the link to continue. <br> <a href="{{ route('classes.subjects.exams.show', [$classe_id, $subject->id])}}">Start</a>
+                            </div><!-- /.box-body -->
+                          </div><!-- /.box -->
+                        @endforeach
+                    @else
 
+                        @foreach($subjectAssigneds as $subjectAssigned)
+                          <div class="box box-warning box-solid">
+                            <div class="box-header with-border">
+                              <h3 class="box-title">{{ Scholrs\Classe::whereId($classe_id)->first()->name}} - {{ Scholrs\Subject::whereId($subjectAssigned->subject_id)->first()->name}}</h3>
+                              <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                              The exam scripts of this exam is ready. click on the link to continue. <br> <a href="{{ route('classes.subjects.exams.show', [$classe_id, $subjectAssigned->subject_id])}}">Start</a>
+                            </div><!-- /.box-body -->
+                          </div><!-- /.box -->
+                        @endforeach
+
+                    @endif
                     </div>
                 </div>
                 <!-- /. box -->
